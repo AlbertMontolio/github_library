@@ -1,3 +1,733 @@
+# S01: Introduction
+
+We use Angular to build front end Application. They are very reactive, that means, everything happens in the "same" page.
+
+What is Angular?
+
+Angular is a Javascript framework which allows you to create reactive Single-Page-Applications (SPAs).
+
+It's just one HTML file, we change the url for the user, but we don't actually change the page.
+
+The experience is as mobile applications.
+
+The JS changes the DOM during run time.
+
+In order to understand the Angular versioning, Angular 2 was completed rewrite from Angular 1.
+
+Angular 1 was the first framewrok to make 1 single app
+
+Angular 2 or higher is called just Angular
+
+From Angular 2 on, the versions are just small incremental improvements.
+
+# CH02: The Command Line Interface (CLI)
+
+Just to get started it, depending on the CLI version you're using, you might also need to add the `FormsModule`  to the `imports[]`  array in your `app.module.ts`  file (add it if you don't see it there). You might not fully understand what that all means but we're going to cover that in this course, no worries.
+
+If you don't have FormsModule  in imports[]  in AppModule , please do add it and also add an import at the top of that file:
+
+```js
+import { FormsModule } from '@angular/forms';
+```
+
+If you want to dive deeper into the CLI and learn more about its usage, have a look at its official documentation:
+
+https://github.com/angular/angular-cli/wiki
+
+You encountered issues during the installation of the CLI or setup of a new Angular project?
+
+A lot of problems are solved by making sure you're using the latest version of NodeJS, npm and the CLI itself.
+
+Updating NodeJS:
+
+Go to nodejs.org and download the latest version - uninstall (all) installed versions on your machine first.
+
+Updating npm:
+
+Run [sudo]
+
+```js
+npm install -g npm  (sudo  is only required on Mac/ Linux)
+```
+
+my machine:
+
+```js
++ npm@6.1.0
+```
+
+Updating the CLI
+
+```js
+[sudo] npm uninstall -g angular-cli @angular/cli
+```
+
+```js
+npm cache clean
+```
+
+```js
+[sudo] npm install -g @angular/cli
+```
+in my machine:
+
+```js
++ @angular/cli@6.0.8
+```
+
+```js
+ng new my-dream-app --style=scss
+ng serve
+```
+
+to be able to use scss
+
+--style=scss
+
+```js
+ng new my-first-app
+```
+
+```js
+ng serve
+```
+
+
+Everyting starts in the index.html
+
+Then, app component is inserted in app-root component
+
+# CH03 Two way binding
+
+app.module.ts
+
+```js
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+```
+
+NgModules configure the injector and the compiler and help organize related things together.
+
+```html
+app.component.html
+
+<input type="text" [(ngModel)] ="name">
+<p>{{ name }}</p>
+```
+
+```js
+export class AppComponent {
+  name = 'Albert';
+}
+```
+
+# Course Structure
+
+the basics, components & databinding, directives, services & dependency injection, routing, observables, forms, pipes, http, authentication, ptimizations & ngModules, deployment, animations & testing
+
+# 9. Typescript
+
+more features than vanilla JS, types, classes, interfaces
+
+then is compiled to javascript
+
+# Bootstrap
+
+```js
+npm install --save bootstrap@3
+```
+
+this installs locally
+
+```js
++ bootstrap@3.3.7
+```
+
+
+make aware that we installed it
+
+angular.json
+
+architecture, build, styles
+
+```js
+"styles": [
+  "node_modules/bootstrap/dist/css/bootstrap.min.css",
+  "src/styles.css"
+],
+```
+
+run again
+
+```js
+ng serve
+```
+
+in the head section, we should the two imports
+
+# course source
+
+
+# 13 how and angular app gets loaded and started
+
+the index.html is the file served by the server
+
+app-root
+
+its a component, the app component
+
+app.component.ts
+
+selector: app-root, replace the html file app-root for the template of the app component
+
+how is angular triggered?
+
+in index.html
+
+ng serve creates the scripts at the end
+
+main.ts, is the first code its executed
+
+the last line is the important,
+
+```js
+platformBrowserDynamic().bootstrapModule(AppModule)
+  .catch(err => console.log(err));
+```
+
+we pass appmodule to the method. bottstrap means start
+
+
+app.module.ts
+
+```js
+bootstrap: [AppComponent]
+```
+
+1main.ts,
+2 app.module.ts
+3 bootstrap: [AppComponent] there is this appcomponent you should know when you start yourself
+
+now angular anlyses the app component
+
+now angular knows how to manage in index.html the app-root selector
+
+
+
+
+# 15 creating a new component
+
+inside app, folder server
+
+server.component.ts
+
+
+a component its just a typescript class, so that angular cna create instances
+
+
+decorators enhange your classes. this is not a normal class, is special, its acomponent
+
+in the end everythingis packed by webpack
+
+server.component.ts
+
+```js
+import { Component } from "@angular/core";
+
+@Component({
+    selector: 'app-server',
+    templateUrl: './server.component.html'
+})
+
+export class ServerComponent {
+
+}
+```
+
+
+#. 16. understanding the role of appmodule and component declaration
+
+its not ready to be used
+
+app.module.ts
+
+module, to bundle different pieces
+
+the app module, we see 4 properties, declarations, imports, providers, bootstrap
+
+bootstrap, which component should you recognize in the html file
+
+we need to tell angular that we created a component
+ngModule,
+
+in declarations array
+
+```js
+import { ServerComponent } from './server/server.component';
+```
+
+```js
+@NgModule({
+  declarations: [
+    AppComponent,
+    ServerComponent
+  ],
+```
+
+imports, you can add more modules
+
+# 17. Using custom components
+
+app.component.html
+
+```js
+<h3>I am in the AppComponent!</h3>
+<hr>
+<app-server></app-server>
+```
+
+our component is there!
+
+
+# 18. creating components with the cli & nesting components
+
+```js
+ng generate component servers
+ng g c servers
+```
+
+servers.component.ts
+
+```js
+<app-server></app-server>
+<app-server></app-server>
+```
+
+import servers.component in app.module.ts
+
+app.component.html
+
+```js
+<h3>I am in the AppComponent!</h3>
+<hr>
+<app-servers></app-servers>
+```
+
+# 19. Working with Component Templates
+
+servers.component.ts
+
+```js
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-servers',
+  template: '<app-server></app-server>',
+  styleUrls: ['./servers.component.css']
+})
+```
+
+`this` if you want with multiple lines
+
+
+# 20. Working with Component styles
+
+you can use bootstrap
+
+```html
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <app-server></app-server>
+      <app-server></app-server>
+    </div>
+  </div>
+</div>
+```
+
+app.component.css
+
+```css
+h3 {
+    color: blue;
+}
+```
+
+# 21. Fully understanding the component selector
+
+it has to be a unique selector
+
+servers.component.ts
+
+```js
+@Component({
+  selector: '[app-servers]',
+```
+
+
+a selector can be an attribute, like in css
+
+then,
+
+app.component.html
+
+```html
+<div app-servers></div>
+```
+
+now angular selects by attribute
+
+you can also select by class
+
+```js
+@Component({
+  selector: '.app-servers',
+```
+
+```html
+<div class="app-servers"></div>
+```
+
+selected by id does not work
+
+for components, we use the normal one
+
+
+
+1. Create two new Components (manually or with cli): WarningAlert and SuccessAlert
+2. output them beath each other in the AppComponent
+3. Output a warning or success message in the Components
+4. Style the components appropriately (maybe some red/ green text?)
+
+
+
+# section 2
+
+# 22. What is Databinding
+
+databinnding = communicatin
+
+typescript code (business logic, server) with tremplate (html), what the user sees
+
+output data, ---->
+string interpolation {{ data }}
+Property Binding ( [property]="data" )
+
+
+
+or the other direction, the user clicks a button <---------------------------
+business logic <------------- teplate html
+
+we can react to user vents, with event binding
+(event)="expression"
+
+
+combination of Both: Two-way-binding [(ngModel) = "data"]
+
+
+
+
+# String interpolation
+
+server.component.ts
+
+```js
+
+export class ServerComponent {
+    serverId: number = 10;
+    serverStatus: string = 'offline';
+}
+```
+
+server.component.html
+
+```html
+<h1>server with iD {{ serverId }} is {{ serverStatus }}</h1>
+```
+
+we reference a property in the component
+
+inside the curly braces, anything that returns a string.
+
+you can call a method
+
+```js
+export class ServerComponent {
+    serverId: number = 10;
+    serverStatus: string = 'offline';
+
+    getServerStatus() {
+        return this.serverStatus;
+    }
+}
+```
+
+```html
+<h1>server with iD {{ serverId }} is {{ getServerStatus() }}</h1>
+```
+
+
+
+# String interpolation
+
+server.component.ts
+
+```js
+
+export class ServerComponent {
+    serverId: number = 10;
+    serverStatus: string = 'offline';
+}
+```
+
+server.component.html
+
+```html
+<h1>server with iD {{ serverId }} is {{ serverStatus }}</h1>
+```
+
+we reference a property in the component
+
+inside the curly braces, anything that returns a string.
+
+you can call a method
+
+```js
+export class ServerComponent {
+    serverId: number = 10;
+    serverStatus: string = 'offline';
+
+    getServerStatus() {
+        return this.serverStatus;
+    }
+}
+```
+
+```html
+<h1>server with iD {{ serverId }} is {{ getServerStatus() }}</h1>
+```
+
+
+# 26. Event Binding
+
+once we click the button
+
+i want to output the value
+
+```js
+export class ServersComponent implements OnInit {
+  allowNewServer = false;
+  serverCreationStatus = "No server was created!"
+```
+
+```html
+<p>{{ serverCreationStatus }}</p>
+```
+
+```js
+onCreateServer() {
+  this.serverCreationStatus
+}
+```
+
+we want to listen to the click event
+event binding
+(name of the vent)=""
+
+```js
+(click)="onCreateServer()"
+```
+
+this method will be executed whenever we click the button
+
+
+# 28. Passing and Using Data with Event Binding
+
+we can listen to the input event.
+
+```html
+<label>Server Name</label>
+<input
+  type="text"
+  class="form-control"
+  (input)="onUpdateServerName()"
+>
+```
+
+i want to pass what the user types
+
+
+```html
+(input)="onUpdateServerName($event)"
+```
+
+```js
+  onUpdateServerName(event: any) {
+    console.log(event);
+  }
+```
+
+if we inspect, event, target, at the end, we find the value
+
+so we have it
+
+
+```js
+export class ServersComponent implements OnInit {
+  allowNewServer = false;
+  serverCreationStatus = "No server was created!";
+  serverName = '';
+```
+
+```js
+  onUpdateServerName(event: Event) {
+    console.log(event);
+    this.serverName = event.target.value;
+  }
+```
+
+he does not like the .value
+
+```js
+Property 'value' does not exist on type 'EventTarget'.
+```
+
+we can just call .value into an element of htmlinput, so we need to specify it
+
+```js
+this.serverName = (<HTMLInputElement>event.target).value;
+```
+
+
+# 29. Important: Formsmodule is Required for Two-Way-Binding
+
+For Two-Way-Binding (covered in the next lecture) to work, you need to enable the ngModel  directive. This is done by adding the FormsModule  to the imports[]  array in the AppModule.
+
+You then also need to add the import from @angular/forms  in the app.module.ts file:
+
+```js
+import { FormsModule } from '@angular/forms';
+```
+
+
+# 30. Two-Way-Databinding
+
+we combine property binding and event binding
+
+```js
+<input
+  type="text"
+  class="form-control"
+  [(ngModel)]=""
+>
+```
+
+ngModel is a directive
+
+```js
+<input
+  type="text"
+  class="form-control"
+  [(ngModel)]="serverName"
+>
+```
+
+serverName is a property
+
+it will trigger on the input event, and update the value of servername, in ourcomponent, automatically
+on the other hand, it will also update the value of the input element, if we change serverName somewhere else
+
+do it in servers.component.ts
+
+```js
+  serverName = 'albert';
+```
+
+then you see this inside the input and underneath
+
+```html
+<input
+  type="text"
+  class="form-control"
+  (input)="onUpdateServerName($event)"
+>
+```
+
+this input is empty because its not using two way binding
+
+
+type in both inputs, then you get it
+
+reacting to events, in BOTH directions
+
+# 31. Combining all forms of Databinding
+
+4 fours of databiding
+
+
+i want to display the serverName, once we click the Add Server button
+comment out p serverName property binding
+
+```js
+  onCreateServer() {
+    this.serverCreationStatus = "server was created! name is " + this.serverName;
+  }
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -23,7 +753,7 @@ with comopnents, with the selector, please add the content in the tag
 	selector: '[appTurnGreen]'
 })
 export class TurnGreenDirective {
-	
+
 }
 ```
 
@@ -142,7 +872,7 @@ add or remove class dynamically
 
 server.component.html
 ```js
-<h1 
+<h1
     [ngStyle]="{backgroundColor: getColor()}"
     [ngClass]="{online: serverStatus === 'online'}"
 >server with iD {{ serverId }} is {{ getServerStatus() }}</h1>
@@ -224,14 +954,14 @@ this methods are called after the button is clicked, when we are done creating t
 in app.component.html
 
 ```html
-<app-cockpit></app-cockpit> 
+<app-cockpit></app-cockpit>
 ```
 
 ```html
 <app-cockpit (serverCreated)="onServerAdded($event)"></app-cockpit>
 ```
 
-# Custom event, 
+# Custom event,
 
 we want to listen to a custom event, and when the event happens, we want to run a js method
 when the server is created
@@ -253,11 +983,11 @@ we expect to get
 app.component.html
 
 ```html
- <app-cockpit 
+ <app-cockpit
     (serverCreated)="onServerAdded($event)"
     (blueprintCreated)="onBlueprintAdded($event)"
   >
-</app-cockpit> 
+</app-cockpit>
 ```
 
 app.component.ts
@@ -330,7 +1060,7 @@ whenever i click, i emit, because i specify it in the method that is called when
 
 in app.component.html
 
-i am listening to this events. whenever they are triggered, i call the onServerAdded, and i update the 
+i am listening to this events. whenever they are triggered, i call the onServerAdded, and i update the
 serverElements array!!!
 
 
@@ -340,7 +1070,7 @@ ooooh, we need something like the @Input. we want to make the properties serverC
 because we are binding them in app.component.html!
 
 ```html
-<app-cockpit 
+<app-cockpit
   (serverCreated)="onServerAdded($event)"
   (blueprintCreated)="onBlueprintAdded($event)"
 >
@@ -403,9 +1133,9 @@ now we should copy our p blue, to the components we want to have it
 
 to the server-element!
 
-if we inspect, we have 
+if we inspect, we have
 ```js
-p[_ngcontent-ejo-2] 
+p[_ngcontent-ejo-2]
 ```
 
 if we see the html tag, is there
@@ -425,7 +1155,7 @@ none: make sure, we dont see the strange attributes. this component does not use
 
 if you apply css in this component, it will be applied everywhere
 
-native: uses the shadow dom technology. same result as emulated, 
+native: uses the shadow dom technology. same result as emulated,
 
 # 69. using local references in templates
 
@@ -433,7 +1163,7 @@ we where using output and input to pass data around
 
 in thecockipit, two way data binding to get the server name and content
 
-its good, but we can get the values while clicking. 
+its good, but we can get the values while clicking.
 
 i just want to save, use, the data, when i click the button, enough to get the value at this point of time
 
@@ -452,8 +1182,8 @@ cockpit.component.ts
 ```html
 <label>Server Name</label>
 <!-- <input type="text" class="form-control" [(ngModel)]="newServerName"> -->
-<input 
-  type="text" 
+<input
+  type="text"
   class="form-control"
   #serverNameInput
 >
@@ -507,8 +1237,8 @@ lets do the same for the server content
 cockpit.component.html
 
 ```html
-<input 
-  type="text" 
+<input
+  type="text"
   class="form-control"
   #serverContentInput
 >
@@ -560,13 +1290,13 @@ it holds a ElementRef
 
 ElementRef has a useful property
 
-the native element property, 
+the native element property,
 
 ```js
 onAddServer(nameInput: HTMLInputElement) {
   // console.log(this.serverContentInput);
   this.serverCreated.emit({
-    serverName: nameInput.value, 
+    serverName: nameInput.value,
     serverContent: this.serverContentInput.nativeElement.value});
 }
 ```
@@ -585,7 +1315,7 @@ this.serverContentInput.nativeElement.value = 'Something';
   onAddBlueprint(nameInput: HTMLInputElement) {
     this.serverContentInput.nativeElement.value = 'Something';
     this.blueprintCreated.emit({
-      serverName: nameInput.value, 
+      serverName: nameInput.value,
       serverContent: this.serverContentInput.nativeElement.value});
   }
 ```
@@ -615,7 +1345,7 @@ maybe we want to put this html inside our component directly
 app.component.html
 
 ```html
-<app-server-element 
+<app-server-element
   *ngFor="let serverElement of serverElements"
   [srvElement]="serverElement"
 >
@@ -627,7 +1357,7 @@ app.component.html
 ```
 
 
-there is a special directive 
+there is a special directive
 
 server-element.component.html
 
@@ -637,7 +1367,7 @@ server-element.component.html
 >
   <div class="panel-heading">{{ element.name }}</div>
   <div class="panel-body">
-    
+
   </div>
 </div>
 ```
@@ -697,7 +1427,7 @@ but its an event . on events, angular needs to check if sth changed, otherwise, 
 angular does that efficiently
 
 ngAfterContentInit, whenever the content which is projected by ng-content has been initialized
-not the view of the component itself. 
+not the view of the component itself.
 
 ngAfterContentChecked, called every time the projected content has been checked
 
@@ -731,7 +1461,7 @@ only hook that receives an argument
   }
 ```
 
-element is our bound property, 
+element is our bound property,
 
 
 in app.component.html
@@ -745,7 +1475,7 @@ app.component.ts
 
 ```js
   onChangeFirst() {
-    
+
   }
 ```
 
@@ -780,7 +1510,7 @@ we pass the name to our component with property binding
 app.component.html
 
 ```html
-<app-server-element 
+<app-server-element
   *ngFor="let serverElement of serverElements"
   [srvElement]="serverElement"
   [name]="serverElement.name"
@@ -802,11 +1532,11 @@ we couldnt use the element as a object, because objects are reference types
 
 we pass the object via input, therefore both properties in the server element component
 
-and the object in the array of serverelements, they both point to the same place in memory, 
+and the object in the array of serverelements, they both point to the same place in memory,
 and therefore, if we change the name there, it will update in the child component, in the server-eement component
 
 
-but it will not trigger the ngOnChanges, because technically, the property that we are binding to, we use here with @Input, 
+but it will not trigger the ngOnChanges, because technically, the property that we are binding to, we use here with @Input,
 that didnt changed, the value didnt change, its the same object in memory
 
 there is differences between references and primitive types
@@ -853,7 +1583,7 @@ content are the two ifs
 
   ngAfterViewChecked() {
     console.log('ngAfterViewChecked called!');
-  } 
+  }
 ```
 server-element.component.ts
 

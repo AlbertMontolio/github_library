@@ -62,25 +62,18 @@ above ngmodule
 
 add new constant, appRoutes. should be of type Routes ,needs to be imported
 
-```js
 add import { Routes } from '@angular/router'; not needed but good practice
-```
 
 what should this constant hold? an array. we have multiple routes
 
 each route, is a javascript object in this array
 we need a path, what gets entered in the url, after the domain
 
-```js
 { path: 'users'}
-```
 
 that corresponds
 
-```js
 localhost:4200/users
-```
-
 
 dont put the / !
 
@@ -713,6 +706,7 @@ angular does that for you, but you need that, if you create your own observables
 # 126. passing query parameters and fragments
 
 we can add more things to our url
+
 
 query parameteres, separated by a ?,multiple, with &
 

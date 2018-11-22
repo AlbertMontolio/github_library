@@ -1,0 +1,30 @@
+107_Clearing_IDB_and_Handling_server_client_mismatch.md
+
+lets add a second post in firebase
+
+if we do changes in our db, no problem
+
+but if we remove the second post
+
+the second post is still in the cache!
+
+put overwrites, but if it does not have it, it does not do anything
+
+in sw.js
+
+we can clear the entire db, before we writeData
+
+lets implement the clear method
+
+
+
+
+
+
+
+
+
+
+
+
+
